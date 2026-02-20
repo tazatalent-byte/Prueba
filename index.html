@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reserva de Prueba</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 30px; background: #f9f9f9; }
+  #gracias-box { background:#f5f5f5; padding:30px; border-radius:10px; max-width:500px; margin:auto; }
+  h2 { margin-top:0; }
+  p { margin:10px 0; }
+</style>
+</head>
+<body>
+
+<div id="gracias-box" style="display:none;">
+  <h2 id="titulo">Gracias por tu reserva</h2>
+  <p>Excursión: <strong id="producto">–</strong></p>
+  <p>Número de reserva: <strong id="reserva">–</strong></p>
+  <p>Total pagado online: <strong id="total">–</strong></p>
+  <p>Ubicación del barco: <strong id="ubicacion">–</strong></p>
+  <p style="margin-top:20px;">
+    ⚠️ Recuerda traer el resto en efectivo.<br>
+    En el puerto la cobertura es limitada y el lector de tarjetas puede fallar.
+  </p>
+</div>
+
+<script>
+(function(){
+  // Para pruebas: simular parámetros de URL
+  const params = new URLSearchParams(window.location.search);
+
+  const total = params.get("total");
+  const product = params.get("product_name");
+  const booking = params.get("booking_id");
+  const lang = params.get("lang");
+  const ubicacion = params.get("ubicacion");
+
+  const box = document.getElementById("gracias-box");
+  box.style.display = "block";
+
+  if(product) document.getElementById("producto").textContent = decodeURIComponent(product);
+  if(total) document.getElementById("total").textContent = total + " €";
+  if(booking) document.getElementById("reserva").textContent = booking;
+  if(ubicacion) document.getElementById("ubicacion").textContent = decodeURIComponent(ubicacion);
+  if(lang === "en") document.getElementById("titulo").textContent = "Thank you for your booking";
+})();
+</script>
+
+</body>
+</html>
